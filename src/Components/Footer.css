@@ -1,0 +1,69 @@
+.footer_box {
+  width: 100%;
+  background-color: black;
+  min-height: 120px;
+  position: absolute;
+  display: flex;
+  bottom: 0%;
+  font-weight: 300;
+}
+.tag_box {
+  width: 40%;
+  margin: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.team_name {
+  display: flex;
+  flex-direction: column;
+}
+
+.team_name span {
+  margin-top: 15px;
+}
+.abc {
+  display: flex;
+  flex-direction: column;
+}
+
+.team_member {
+  display: flex;
+  flex-direction: column;
+}
+.abc span {
+  margin-top: 15px;
+}
+
+.team_member span {
+  margin-top: 15px;
+}
+
+.Block_chain {
+  display: flex;
+  margin-left: 300px;
+  align-items: center;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.Block_chain span {
+  margin-left: 30px;
+}
+
+.blogger {
+  font-size: 20px;
+}
+
+.github {
+  font-size: 20px;
+}
+
+span button {
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.button_blogger {
+  margin-left: 10px;
+}
