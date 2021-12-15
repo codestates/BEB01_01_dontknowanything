@@ -16,11 +16,12 @@ import {
   ViewHeadlineSharp,
 } from "@material-ui/icons";
 
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { Route, Switch,Link } from "react-router-dom";
+import ConnectWallet from "./ConnectWallet";
 import NftList from "./NftList";
 import Homepage from "./Homepage";
 
-function Navbar({ SetLight, light }) {
+function Navbar({ SetLight, light, connectWallet }) {
   const [active, setDropdown] = useState(false);
   const hoverDropDown = () => {
     setDropdown(!active);
@@ -124,13 +125,13 @@ function Navbar({ SetLight, light }) {
         <button type="button" className="navIcon">
           <AccountCircle fontSize="large" />
         </button>
-        <button type="button" className="navIcon">
-          <AccountBalanceWallet fontSize="large" />
-        </button>
+        <ConnectWallet connectWallet={connectWallet}/>
       </div>
-      <Routes>
-        <Route path="MyNFT" element={<NftList />} />
-      </Routes>
+      <Switch>
+        <Route path="/MyNFT">
+          <NftList />
+        </Route>
+      </Switch>
     </header>
   );
 }

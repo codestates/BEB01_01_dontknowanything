@@ -1,6 +1,7 @@
 .footer_box {
   background-color: red;
   min-height: 150px;
+  width: 100vw;
   display: flex;
   background-color: rgb(59, 59, 59);
   color: #fff;
