@@ -1,0 +1,53 @@
+.footer_box {
+  background-color: red;
+  min-height: 150px;
+  display: flex;
+  background-color: rgb(59, 59, 59);
+  color: #fff;
+  font-weight: 500;
+}
+
+.menu {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu .team_name {
+  margin: 30px;
+  margin-left: 50px;
+}
+.menu .team_name p {
+  margin-left: -50px;
+}
+.menu .gisu p {
+  margin-left: 20px;
+}
+.team_member p {
+  margin-left: -10px;
+}
+
+.menu .gisu {
+  margin: 30px;
+  margin-left: -20px;
+}
+
+.menu .team_member {
+  margin: 30px;
+  margin-left: -20px;
+}
+
+.information {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 25px;
+}
+
+.information button {
+  border-radius: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
