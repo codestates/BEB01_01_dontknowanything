@@ -37,12 +37,14 @@ function Navbar({ SetLight, light, connectWallet }) {
         <div className="siteName">
           <DirectionsBoat /> OpenSea
         </div>
-        <Search fontSize="large" />
-        <input
-          className="searchBox"
-          type="text"
-          placeholder="  Search items, collections, and accounts"
-        ></input>
+        <div className="searchBoxDiv">
+          <Search fontSize="large" style={{paddingTop: "10px"}} />
+          <input
+            className="searchBox"
+            type="text"
+            placeholder="  Search items, collections, and accounts"
+          ></input>
+        </div>
         <span className="dropdown" onClick={hoverDropDown}>
           <button type="button" className="dropdown-toggle">
             My NFT
@@ -125,7 +127,7 @@ function Navbar({ SetLight, light, connectWallet }) {
         <button type="button" className="navIcon">
           <AccountCircle fontSize="large" />
         </button>
-        <ConnectWallet connectWallet={connectWallet}/>
+        <ConnectWallet className="navIcon" connectWallet={connectWallet}/>
       </div>
       <Switch>
         <Route path="/MyNFT">
