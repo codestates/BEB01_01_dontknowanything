@@ -5,7 +5,7 @@ import {
 function ConnectWallet({ connectWallet }) {
     return (
         <button type="button" className="navIcon" onClick= {() => {connectWallet()}}>
-            <AccountBalanceWallet fontSize="large" />
+            <AccountBalanceWallet fontSize="large" style = {{paddingRight: "10px"}} />
         </button>
     )
 }

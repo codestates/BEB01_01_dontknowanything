@@ -2,7 +2,7 @@ import React from "react";
 import "./Homepage.css";
 function Homepage({ light }) {
   return (
-    <div>
+    <div className="homepage">
       <div className="image">
         <img src="./img/lamp.png" className="lamp" />
         <img src="./img/light.png" className={light ? "light_on" : "light"} />
