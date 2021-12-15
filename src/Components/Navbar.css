@@ -120,7 +120,7 @@ input:focus {
   border: 0px;
   outline: 0px;
   /**/
-  padding: 0 16px;
+  padding: 0 16 0px;
   text-align: left;
 }
 
