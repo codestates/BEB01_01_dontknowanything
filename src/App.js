@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Footer from "./Components/Footer";
 import Homepage from "./Components/Homepage";
-
+import NftList from "./Components/NftList";
 import Navbar from "./Components/Navbar";
 /*import NftList from "./Components/NftList";*/
 
@@ -39,11 +39,14 @@ function App() {
       <Navbar SetLight={SetLight} light={light} connectWallet={connectWallet}/>
       {/* <Homepage light={light} /> */}
       <Switch>
-        <Route path="/">
-          <Homepage light={light} />
+        <Route exact path="/">
+           <Homepage light={light}/> 
+           <Footer />
+        </Route>
+        <Route path="/assets"> 
+          <NftList />
         </Route>
       </Switch>
-      <Footer />
     </div>
   );
 }

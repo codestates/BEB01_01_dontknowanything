@@ -35,7 +35,9 @@ function Navbar({ SetLight, light, connectWallet }) {
     <header className="App-header">
       <div className="navBar">
         <div className="siteName">
-          <DirectionsBoat /> OpenSea
+          <Link to="/">
+            <DirectionsBoat /> OpenSea
+          </Link>
         </div>
         <div className="searchBoxDiv">
           <Search fontSize="large" style={{paddingTop: "10px"}} />
@@ -52,11 +54,11 @@ function Navbar({ SetLight, light, connectWallet }) {
           {active && (
             <ul className="dropdown-menu">
               <li className="dropdown-item">
-                <Link to="MyNFT">
                   <button type="button" value="1" className="dropdown-option">
-                    <Grain /> All NFTs
+                    <Link to="/assets">
+                        <Grain /> All NFTs
+                    </Link>
                   </button>
-                </Link>
               </li>
               <li className="dropdown-item">
                 <button type="button" value="2" className="dropdown-option">
