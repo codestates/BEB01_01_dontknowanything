@@ -37,14 +37,18 @@ function Navbar({ SetLight, light, connectWallet, web3, account }) {
     <header className="App-header">
       <div className="navBar">
         <div className="siteName">
-          <DirectionsBoat /> OpenSea
+          <Link to="/">
+            <DirectionsBoat /> OpenSea
+          </Link>
         </div>
-        <Search fontSize="large" />
-        <input
-          className="searchBox"
-          type="text"
-          placeholder="  Search items, collections, and accounts"
-        ></input>
+        <div className="searchBoxDiv">
+          <Search fontSize="large" style={{ paddingTop: "10px" }} />
+          <input
+            className="searchBox"
+            type="text"
+            placeholder="  Search items, collections, and accounts"
+          ></input>
+        </div>
         <span className="dropdown" onClick={hoverDropDown}>
           <button type="button" className="dropdown-toggle">
             My NFT
@@ -52,11 +56,11 @@ function Navbar({ SetLight, light, connectWallet, web3, account }) {
           {active && (
             <ul className="dropdown-menu">
               <li className="dropdown-item">
-                <Link to="/MyNFT">
-                  <button type="button" value="1" className="dropdown-option">
+                <button type="button" value="1" className="dropdown-option">
+                  <Link to="/assets">
                     <Grain /> All NFTs
-                  </button>
-                </Link>
+                  </Link>
+                </button>
               </li>
               <li className="dropdown-item">
                 <button type="button" value="2" className="dropdown-option">
@@ -130,7 +134,8 @@ function Navbar({ SetLight, light, connectWallet, web3, account }) {
         <button type="button" className="navIcon">
           <AccountCircle fontSize="large" />
         </button>
-        <ConnectWallet connectWallet={connectWallet} />
+
+        <ConnectWallet className="navIcon" connectWallet={connectWallet} />
       </div>
       <Switch>
         <Route path="/MyNFT">

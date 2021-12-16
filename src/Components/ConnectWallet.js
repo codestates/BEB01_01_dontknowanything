@@ -9,7 +9,7 @@ function ConnectWallet({ connectWallet }) {
         connectWallet();
       }}
     >
-      <AccountBalanceWallet fontSize="large" />
+      <AccountBalanceWallet fontSize="large" style={{ paddingRight: "10px" }} />
     </button>
   );
 }
