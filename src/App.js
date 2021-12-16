@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Web3 from "web3";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Footer from "./Components/Footer";
@@ -11,11 +11,9 @@ import Navbar from "./Components/Navbar";
 
 function App() {
   const [light, SetLight] = useState(false);
-  console.log(light);
   /*web3설정 */
   const [web3, setWeb3] = useState();
-  const [account, setAccount] = useState('');
-
+  const [account, setAccount] = useState("");
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       try {
@@ -25,25 +23,30 @@ function App() {
         console.log(err);
       }
     }
-  },[]);
+  }, []);
 
   const connectWallet = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
     setAccount(accounts[0]);
-  }
+  };
 
   return (
     <div className="App">
-      <Navbar SetLight={SetLight} light={light} connectWallet={connectWallet}/>
-      {/* <Homepage light={light} /> */}
+      <Navbar
+        SetLight={SetLight}
+        light={light}
+        connectWallet={connectWallet}
+        web3={web3}
+        account={account}
+      />
       <Switch>
         <Route exact path="/">
-           <Homepage light={light}/> 
-           <Footer />
+          <Homepage light={light} />
+          <Footer />
         </Route>
-        <Route path="/assets"> 
+        <Route path="/assets">
           <NftList />
         </Route>
       </Switch>
