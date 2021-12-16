@@ -16,13 +16,15 @@ import {
   ViewHeadlineSharp,
 } from "@material-ui/icons";
 
-import { Route, Switch,Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import ConnectWallet from "./ConnectWallet";
 import NftList from "./NftList";
 import Homepage from "./Homepage";
+import MakeNFT from "./MakeNFT";
 
-function Navbar({ SetLight, light, connectWallet }) {
+function Navbar({ SetLight, light, connectWallet, web3, account }) {
   const [active, setDropdown] = useState(false);
+
   const hoverDropDown = () => {
     setDropdown(!active);
   };
@@ -50,7 +52,7 @@ function Navbar({ SetLight, light, connectWallet }) {
           {active && (
             <ul className="dropdown-menu">
               <li className="dropdown-item">
-                <Link to="MyNFT">
+                <Link to="/MyNFT">
                   <button type="button" value="1" className="dropdown-option">
                     <Grain /> All NFTs
                   </button>
@@ -104,9 +106,12 @@ function Navbar({ SetLight, light, connectWallet }) {
             </ul>
           )}
         </span>
-        <button type="button" className="navButton">
-          구현중
-        </button>
+        <Link to="MakeNFT">
+          <button type="button" className="navButton">
+            Make NFT
+          </button>
+        </Link>
+
         <button type="button" className="navButton">
           구현중
         </button>
@@ -125,11 +130,14 @@ function Navbar({ SetLight, light, connectWallet }) {
         <button type="button" className="navIcon">
           <AccountCircle fontSize="large" />
         </button>
-        <ConnectWallet connectWallet={connectWallet}/>
+        <ConnectWallet connectWallet={connectWallet} />
       </div>
       <Switch>
         <Route path="/MyNFT">
           <NftList />
+        </Route>
+        <Route path="/MakeNFT">
+          <MakeNFT web3={web3} account={account} />
         </Route>
       </Switch>
     </header>
