@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "./Footer";
+
 import "./NftList.css";
-import Navbar from "./Navbar";
+
 function NftList() {
   return (
     <header className="nftListPage">

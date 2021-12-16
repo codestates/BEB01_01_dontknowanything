@@ -19,7 +19,6 @@ import {
 import { Route, Switch, Link } from "react-router-dom";
 import ConnectWallet from "./ConnectWallet";
 import NftList from "./NftList";
-import Homepage from "./Homepage";
 import MakeNFT from "./MakeNFT";
 
 function Navbar({ SetLight, light, connectWallet, web3, account }) {

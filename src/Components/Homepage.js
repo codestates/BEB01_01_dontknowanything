@@ -4,8 +4,12 @@ function Homepage({ light }) {
   return (
     <div className="homepage">
       <div className="image">
-        <img src="./img/lamp.png" className="lamp" />
-        <img src="./img/light.png" className={light ? "light_on" : "light"} />
+        <img src="./img/lamp.png" className="lamp" alt="lamp" />
+        <img
+          src="./img/light.png"
+          className={light ? "light_on" : "light"}
+          alt="light"
+        />
       </div>
       <div className="text">
         <h2>Super NFT Market</h2>
