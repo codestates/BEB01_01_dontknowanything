@@ -21,8 +21,7 @@ function NftList() {
           </ul>
         </div>
       </div>
-
-      <div className="cardWrapper">
+<div className="cardWrapper">
         <span className="card">
           <div className="cardImgDiv">
             <img
@@ -210,6 +209,7 @@ function NftList() {
       </div>
     </header>
   );
+
 }
 
 export default NftList;
