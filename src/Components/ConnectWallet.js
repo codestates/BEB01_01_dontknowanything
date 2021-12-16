@@ -1,7 +1,7 @@
 import { AccountBalanceWallet } from "@material-ui/icons";
 
 function ConnectWallet({ connectWallet }) {
-  return (
+return (
     <button
       type="button"
       className="navIcon"
