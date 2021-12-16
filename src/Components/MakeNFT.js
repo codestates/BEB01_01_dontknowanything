@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import "./MakeNFT.css";
-const Web3 = require("web3");
 
 function MakeNFT({ web3, account }) {
   const [img, SetImg] = useState("");
   const [name, SetName] = useState("");
   const [link, SetLink] = useState("");
   const [description, SetDescription] = useState("");
-  const [hash, SetHash] = useState([]);
+
   const abi = [
     {
       inputs: [],
@@ -477,56 +476,47 @@ function MakeNFT({ web3, account }) {
       type: "function",
     },
   ];
-  const CA = "0x89B078E2eAA3c9c93d3DF3b7A9928a7d08471661";
-  const my_pri =
-    "bfe5a22cf2611a04b95fa02dc63b53055ad0aad323156ce2faeaa267aef12abb";
-  const my_pub = "0x63545A377b3fE7286014572d9794C93B9FC5c5a3";
+  const CA = "0x57679b27E9acc7476204d55BF97EC998c465b1FF";
 
   const clickButton = async () => {
     if (name !== "" && img !== "" && link !== "" && description !== "") {
-      const web3 = new Web3(
-        new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545")
-      );
-
       const nftContract = await new web3.eth.Contract(abi, CA);
-
-      const nonce = await web3.eth.getTransactionCount(my_pub, "latest");
-
-      const NFT = await nftContract.methods.mintNFT(my_pub, "123").call();
-      console.log(NFT);
-
+      const nonce = await web3.eth.getTransactionCount(account, "latest");
       const tx = {
-        from: my_pub,
+        from: account,
         to: CA,
         nonce: nonce,
         gas: 500000,
-        data: nftContract.methods.mintNFT(my_pub, "asd").encodeABI(),
+        data: nftContract.methods
+          .mintNFT(account, link + `,${name},${description}`)
+          .encodeABI(),
       };
 
-      await web3.eth.accounts.signTransaction(tx, my_pri).then((signedTx) => {
-        web3.eth.sendSignedTransaction(signedTx.rawTransaction, (err, hash) => {
-          if (!err) {
-            web3.eth.getTransaction(hash).then((a) => {
-              console.log(a);
-            });
-          } else {
-            console.log(err);
-          }
-        });
-      });
+      await web3.eth.sendTransaction(tx);
+
+      // await web3.eth.accounts.signTransaction(tx, my_pri).then((signedTx) => {
+      //   web3.eth.sendSignedTransaction(signedTx.rawTransaction, (err, hash) => {
+      //     if (!err) {
+      //       console.log("NFT전송 완료!");
+      //     } else {
+      //       console.log(err);
+      //     }
+      //   });
+      // });
 
       const total = await nftContract.methods.totalSupply().call();
+
       let arr = [];
-      for (let i = 0; i < total; i++) {
+      for (let i = 1; i <= total; i++) {
         arr.push(i);
       }
-
-      for (let tokenID of arr) {
-        let host = await nftContract.methods.ownerOf(tokenID).call();
-        console.log(host);
+      for (let Id of arr) {
+        let host = await nftContract.methods.ownerOf(Id).call();
+        if (String(host) === account) {
+          let tokenURI = await nftContract.methods.tokenURI(Id).call();
+          console.log(tokenURI);
+        }
       }
-
-      console.log(total);
     } else {
       alert("모두 입력해 주세요");
     }
@@ -538,7 +528,6 @@ function MakeNFT({ web3, account }) {
 
       reader.readAsDataURL(e.target.files[0]);
       // base64로 인코딩
-
       reader.onload = (event) => {
         const previewImage = document.querySelector(".img");
         previewImage.src = event.target.result;
@@ -567,7 +556,7 @@ function MakeNFT({ web3, account }) {
             File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG,
             GLB, GLTF. Max size: 100 MB
           </span>
-          <img src="/" className="img" />
+          <img src="/" className="img" alt="img" />
           <input
             id="img"
             type="file"

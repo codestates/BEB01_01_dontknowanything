@@ -1,9 +1,9 @@
-import { Block, GitHub, LocalActivity } from "@material-ui/icons";
+import { GitHub, LocalActivity } from "@material-ui/icons";
 import React from "react";
 import "./Footer.css";
 function Footer() {
   return (
-   <header>
+    <header>
       <div className="footer_box">
         <div className="menu">
           <div className="team_name">
@@ -18,29 +18,21 @@ function Footer() {
             <h2>Team Member</h2>
             <p>유호진, 안창남, 김대익</p>
           </div>
-          
-          <div className="information">
-          Block Chain Project_1
-          <a
-            href="https://github.com/codestates/BEB1stProject-05"
-            target="_blank"
-          >
-            <button>
-              <GitHub fontSize="large" />
-            </button>
-          </a>
-          <a
-            href="https://github.com/codestates/BEB1stProject-05"
-            target="_blank"
-          >
-            <button>
-              <LocalActivity fontSize="large" />
-            </button>
-          </a>
-        </div>
-        </div>
 
-        
+          <div className="information">
+            Block Chain Project_1
+            <a href="https://github.com/codestates/BEB1stProject-05">
+              <button>
+                <GitHub fontSize="large" />
+              </button>
+            </a>
+            <a href="https://github.com/codestates/BEB1stProject-05">
+              <button>
+                <LocalActivity fontSize="large" />
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
     </header>
   );
