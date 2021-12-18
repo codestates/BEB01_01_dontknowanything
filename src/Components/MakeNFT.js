@@ -1,11 +1,44 @@
 import React, { useState } from "react";
 import "./MakeNFT.css";
 
+import ERC721abi from "./ERC721abi";
+const Web3 = require("web3");
+const IpfsApi = require('ipfs-api');
+const ipfs = IpfsApi("ipfs.infura.io", "5001", { protocol: "http"});
+
+
 function MakeNFT({ web3, account }) {
   const [img, SetImg] = useState("");
   const [name, SetName] = useState("");
   const [link, SetLink] = useState("");
   const [description, SetDescription] = useState("");
+
+  const [hash, SetHash] = useState([]);
+  const abi = ERC721abi;
+  const CA = "0x89B078E2eAA3c9c93d3DF3b7A9928a7d08471661";
+  const my_pri =
+    "bfe5a22cf2611a04b95fa02dc63b53055ad0aad323156ce2faeaa267aef12abb";
+  const my_pub = "0x63545A377b3fE7286014572d9794C93B9FC5c5a3";
+
+  const clickButton = async () => {
+    if (name !== "" && img !== "" && description !== "") {
+      /*express로 서버 따로 만들어야줘야되나?? */
+      const ipfsUpload = (req, res) => {
+        //이미지 파일 받아서
+        const file = img;
+        //const file = req.files.file.data;
+        //ipfs에 추가
+        ipfs.files.add(file).then(result => {
+            if (!result) {
+              //추가한 후에 받은 link를 SetLink로 설정시키기
+              //이 값이 ERC721에 들어갈 link
+              SetLink(`https://ipfs.io/ipfs/${result[result.length - 1]}`);
+            }
+          });
+      };
+      ipfsUpload();
+
+
 
   const abi = [
     {
@@ -522,6 +555,7 @@ function MakeNFT({ web3, account }) {
     }
   };
 
+
   const imgChange = async (e) => {
     if (e.files === undefined) {
       let reader = new FileReader();
@@ -536,27 +570,31 @@ function MakeNFT({ web3, account }) {
     }
   };
 
+  const convertToBuffer = async (reader) => {
+    const buffer = Buffer.from(reader.result);
+  };
+  
+  //useState
   const nameChange = (e) => {
     SetName(e.target.value);
   };
 
-  const linkChange = (e) => {
-    SetLink(e.target.value);
-  };
+  //useState
   const descriptionChange = (e) => {
     SetDescription(e.target.value);
   };
+
   return (
     <div className="MakeNFT_back">
       <div className="MakeNFT_BOX">
         <div id="title">Create New Item</div>
         <div className="img_box">
           <span className="img_span">img</span>
-          <span className="img_example">
-            File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG,
-            GLB, GLTF. Max size: 100 MB
-          </span>
-          <img src="/" className="img" alt="img" />
+
+          <text className="img_example">
+            File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF 
+          </text>
+          <img src="/" className="img" />
           <input
             id="img"
             type="file"
@@ -578,16 +616,7 @@ function MakeNFT({ web3, account }) {
             value={name}
           />
         </div>
-        <div className="link_box">
-          <span className="link_span">link</span>
-          <input
-            type="text"
-            placeholder="link"
-            required
-            onChange={linkChange}
-            value={link}
-          />
-        </div>
+
         <div className="description_box">
           <span className="description_span">description</span>
           <input
