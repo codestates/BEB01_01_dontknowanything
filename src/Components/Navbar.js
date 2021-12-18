@@ -110,6 +110,7 @@ function Navbar({ SetLight, light, connectWallet, web3, account }) {
             </ul>
           )}
         </span>
+
         <Link to="MakeNFT">
           <button type="button" className="navButton">
             Make NFT
@@ -134,7 +135,7 @@ function Navbar({ SetLight, light, connectWallet, web3, account }) {
         <button type="button" className="navIcon">
           <AccountCircle fontSize="large" />
         </button>
-<ConnectWallet className="navIcon" connectWallet={connectWallet} />
+        <ConnectWallet className="navIcon" connectWallet={connectWallet} />
       </div>
       <Switch>
         <Route path="/MyNFT">
