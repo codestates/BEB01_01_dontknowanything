@@ -55,7 +55,7 @@ function Navbar({ SetLight, light, connectWallet, web3, account }) {
           {active && (
             <ul className="dropdown-menu">
               <li className="dropdown-item">
-<button type="button" value="1" className="dropdown-option">
+                <button type="button" value="1" className="dropdown-option">
                   <Link to="/assets">
                     <Grain /> All NFTs
                   </Link>

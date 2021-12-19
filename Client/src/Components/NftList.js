@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./NftList.css";
+import ERC721abi from "./ERC721abi";
+import axios from "axios";
 
-function NftList() {
+const CA = "0xdf68d3471f500237adddaf48c4dc9d336f92629c";
+
+function NftList({ web3, account }) {
+  const [list, SetList] = useState("");
+
+  useEffect(async () => {
+    const nftContract = await new web3.eth.Contract(ERC721abi, CA);
+    const total = await nftContract.methods.totalSupply().call();
+    let arr = [];
+    let answer = [];
+    for (let i = 1; i <= total; i++) {
+      arr.push(i);
+    }
+
+    for (let Id of arr) {
+      let host = await nftContract.methods.ownerOf(Id).call();
+
+      if (String(host).toLowerCase() === account) {
+        let tokenURI = await nftContract.methods.tokenURI(Id).call();
+        let temp = tokenURI.split(", ");
+        await axios.get(temp[0]).then((data) => {
+          temp[0] = data.data;
+        });
+        console.log(temp);
+        answer.push(temp);
+      }
+    }
+    SetList(answer);
+  }, []);
+
   return (
     <header className="nftListPage">
-      <div clasName="nftExplorer">
-        <text className="nftListText">Explore Collections</text>
+      <div className="nftExplorer">
+        <div className="nftListText">
+          {!account || !web3 ? "홈페이지를 통해주세요" : "Explore Collections"}
+        </div>
         <div>
           <ul className="nftList">
             <li>All NFTs</li>
@@ -21,195 +54,32 @@ function NftList() {
           </ul>
         </div>
       </div>
-<div className="cardWrapper">
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://lh3.googleusercontent.com/proxy/1gV-D9GS-Hi78-6CBJp9PsDzoNWMnF8hihvQei60vCbGPNYUyJB52aFrjJ9-1blWnIeMiFQkn5ZC7QDIq1HPRtQk1xXplBhwYjuSpu48hsv1CpM79jTyKYE"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://mblogthumb-phinf.pstatic.net/MjAxODA4MDhfMjkw/MDAxNTMzNjg5Mjk0NzQz.rKAkFER-gPKyZ8vDASUzqzMP_Hvhq09yZg-oa_0oSocg.rFPIjJW7wif2v78Id5DCjiFR3NZZWYcriL84ZNIDEAwg.JPEG.petgeek/30906215_2039070879696214_8724227589301862400_n.jpg?type=w800"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://mblogthumb-phinf.pstatic.net/20151206_20/thandra_14493635161768AuMG_JPEG/%B5%C5%C1%F63.jpg?type=w800"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://lh3.googleusercontent.com/proxy/OPuyBpXxyf3eOYYR0p-251tJVb3L12jFCrG5BsAT97LVQ2_fMWdpN044UibKrvppiFQ884ga2a8_UHz_SuZwo2gwhPNn2nCcZxqORB0e0qxNWedj3BWzpyJk9unngZ1Hel3_1UVruBbZ3f3fplppGBjKoJw"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={"https://t1.daumcdn.net/cfile/tistory/2553E833596EFE0838"}
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={"https://s.gae9.com/trend/e1082771fcae1ba5.orig"}
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        {/* */}
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://lh3.googleusercontent.com/proxy/1gV-D9GS-Hi78-6CBJp9PsDzoNWMnF8hihvQei60vCbGPNYUyJB52aFrjJ9-1blWnIeMiFQkn5ZC7QDIq1HPRtQk1xXplBhwYjuSpu48hsv1CpM79jTyKYE"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://mblogthumb-phinf.pstatic.net/MjAxODA4MDhfMjkw/MDAxNTMzNjg5Mjk0NzQz.rKAkFER-gPKyZ8vDASUzqzMP_Hvhq09yZg-oa_0oSocg.rFPIjJW7wif2v78Id5DCjiFR3NZZWYcriL84ZNIDEAwg.JPEG.petgeek/30906215_2039070879696214_8724227589301862400_n.jpg?type=w800"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://mblogthumb-phinf.pstatic.net/20151206_20/thandra_14493635161768AuMG_JPEG/%B5%C5%C1%F63.jpg?type=w800"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={
-                "https://lh3.googleusercontent.com/proxy/OPuyBpXxyf3eOYYR0p-251tJVb3L12jFCrG5BsAT97LVQ2_fMWdpN044UibKrvppiFQ884ga2a8_UHz_SuZwo2gwhPNn2nCcZxqORB0e0qxNWedj3BWzpyJk9unngZ1Hel3_1UVruBbZ3f3fplppGBjKoJw"
-              }
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={"https://t1.daumcdn.net/cfile/tistory/2553E833596EFE0838"}
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
-
-        <span className="card">
-          <div className="cardImgDiv">
-            <img
-              className="cardImg"
-              src={"https://s.gae9.com/trend/e1082771fcae1ba5.orig"}
-              alt="test"
-            />
-          </div>
-          <div className="cardBody">
-            <h4 className="cardTitle">댕댕이</h4>
-            <p className="cardText">귀여워요</p>
-          </div>
-        </span>
+      <div className="cardWrapper">
+        {list.length === 0 ? (
+          <div>loading</div>
+        ) : (
+          list.map((URI, idx) => {
+            return (
+              <span className="card" key={idx}>
+                <div className="cardImgDiv">
+                  <img
+                    className="cardImg"
+                    src={URI[0]}
+                    alt="test"
+                    key={"img"}
+                  />
+                </div>
+                <div className="cardBody">
+                  <h4 className="cardTitle">{URI[1]}</h4>
+                  <p className="cardText">{URI[2]}</p>
+                </div>
+              </span>
+            );
+          })
+        )}
       </div>
     </header>
   );
-
 }
 
 export default NftList;

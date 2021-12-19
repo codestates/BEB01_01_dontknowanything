@@ -5,9 +5,8 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Footer from "./Components/Footer";
 import Homepage from "./Components/Homepage";
-import NftList from "./Components/NftList";
 import Navbar from "./Components/Navbar";
-/*import NftList from "./Components/NftList";*/
+import NftList from "./Components/NftList";
 
 function App() {
   const [light, SetLight] = useState(false);
@@ -47,7 +46,7 @@ function App() {
           <Footer />
         </Route>
         <Route path="/assets">
-          <NftList />
+          <NftList web3={web3} account={account} />
         </Route>
       </Switch>
     </div>
