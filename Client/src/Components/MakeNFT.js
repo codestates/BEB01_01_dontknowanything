@@ -4,7 +4,7 @@ import ERC721abi from "./ERC721abi";
 
 const IpfsApi = require("ipfs-api");
 const ipfs = IpfsApi("ipfs.infura.io", "5001", { protocol: "http" });
-const CA = "0xc5ea1576fda2b80020d30f06d656646fb0981233";
+const CA = "0xdf68d3471f500237adddaf48c4dc9d336f92629c";
 
 function MakeNFT({ web3, account }) {
   const [img, SetImg] = useState("");
@@ -15,14 +15,21 @@ function MakeNFT({ web3, account }) {
   const clickButton = async () => {
     if (name !== "" && img !== "" && description !== "") {
       /*express로 서버 따로 만들어야줘야되나?? */
-      const ipfsUpload = async (req, res) => {
+
+      const ipfsUpload = async () => {
+        console.log(img);
         await ipfs.add(Buffer.from(img)).then((result) => {
           SetLink(`https://ipfs.io/ipfs/${String(result[0].path)}`);
         });
       };
       await ipfsUpload();
       // 여기까지 하면 링크, 이름, 추가 설명 까지 완성
-      SendTransaction();
+      console.log(link);
+      if (link === "") {
+        alert("다시 전송해 주세요!");
+      } else {
+        SendTransaction();
+      }
     } else {
       alert("모든 값을 입력해 주세요!");
     }
@@ -41,24 +48,10 @@ function MakeNFT({ web3, account }) {
         .mintNFT(account, `${link}, ${name}, ${description}`)
         .encodeABI(),
     };
-
     await web3.eth.sendTransaction(tx).then((trs) => {
       console.log(trs.blockNumber);
     });
 
-    // const total = await nftContract.methods.totalSupply().call();
-
-    // let arr = [];
-    // for (let i = 1; i <= total; i++) {
-    //   arr.push(i);
-    // }
-    // for (let Id of arr) {
-    //   let host = await nftContract.methods.ownerOf(Id).call();
-    //   if (String(host).toLowerCase() === account) {
-    //     let tokenURI = await nftContract.methods.tokenURI(Id).call();
-    //     console.log(tokenURI);
-    //   }
-    // }
     alert("NFT생성 완료!!!!");
   };
 
@@ -74,10 +67,6 @@ function MakeNFT({ web3, account }) {
         SetImg(event.target.result);
       };
     }
-  };
-
-  const convertToBuffer = async (reader) => {
-    const buffer = Buffer.from(reader.result);
   };
 
   //useState
@@ -101,7 +90,7 @@ function MakeNFT({ web3, account }) {
             File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG,
             GLB, GLTF
           </text>
-          <img src="/" className="img" />
+          <img src="/" className="img" alt="test" />
           <input
             id="img"
             type="file"
