@@ -6,4 +6,5 @@ NFT 생성 및 만들어진 NFT를 프론트에 나열하는 작업까지 진행
 
 Node.js, React.js, Web3, axios를 대표적으로 활용 하였습니다.
 
-![ezgif com-gif-maker-2](https://user-images.githubusercontent.com/83758624/146716598-30a4e7e6-cfc8-4017-80f0-e4ed2d325140.gif)
+
+![ezgif com-gif-maker-2](https://user-images.githubusercontent.com/83758624/146716870-b650a512-e0c7-4619-a0fe-a4c04573453e.gif)
